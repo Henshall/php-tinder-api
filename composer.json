@@ -1,0 +1,18 @@
+{
+    "name": "henshall/php-tinder-api",
+    "description": "Allows users to access Tinders Private API - you can authenticate yourself with sms, swipe on users, change your location, and more!",
+    "authors": [{
+        "name": "wes",
+        "email": "weshenshall@gmail.com"
+    }],
+    "minimum-stability": "dev",
+    "require": {
+    
+        "guzzlehttp/guzzle": "^7.1@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Henshall\\": "src/"
+        }
+    }
+}
