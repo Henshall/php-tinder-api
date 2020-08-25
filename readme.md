@@ -88,7 +88,7 @@ $result = $tinderApi->getMetadata($tinder_token);
 
 ### Get Recommendations
 This gives you a list of other users you can swipe on - and that are recommended to you
-based on your profile settings. It returns 0-25 matches.
+based on your profile settings. It returns 0-25 potential matches.
 ```php
 $tinderApi = new TinderApi;
 $result = $tinderApi->getRecommendations($tinder_token);
@@ -138,7 +138,7 @@ try {
 
 
 ## Using The Tinder Mock API:
-The Tinder Mock API will work exactly the same as the Tinder API - except that it will always return successful responses. For example, you can see the example using the TinderMockApi's getProfile, is the example same as the tinder Api's.
+The Tinder Mock API will return successful mock responses for all of the same methods in the TinderApi. For example, you can see the example using the TinderMockApi's getProfile, is the example same as the TinderApi's.
 
 ```php
 $tinderApi = new TinderMockApi;
