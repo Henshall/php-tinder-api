@@ -67,7 +67,7 @@ token expires, you can simple generate a new one with the refresh token.
 ```php
 $tinderApi = new TinderApi;
 $result = $tinderApi->getTokenFromRefreshToken($refresh_token);
-// Grab the Refresh Token
+// Grab the Tinder API Token
 $tinder_token = $result["api_token"];
 ```
 
