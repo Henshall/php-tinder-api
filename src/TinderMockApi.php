@@ -3,9 +3,6 @@
 namespace Henshall;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\TransferException;
-use Illuminate\Support\Facades\Log;
 use Henshall\TinderApiInterface;
 
 class TinderMockApi implements TinderApiInterface
@@ -17,29 +14,36 @@ class TinderMockApi implements TinderApiInterface
     */
     private $client;
     
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
-        
+    private $responses;
+    
+    public function __construct()
+    {      
+        $this->responses = include('Responses.php');
+        $this->client = new Client;
     }
     
-    
+    /**
+    * @return string
+    */
     public function requestCode($phoneNumber)
     {
-        return "ddd";
+        return $this->responses["requestCode"];
     }
     
-    
-    public function validateCode($phoneNumber, $loginRequestCode, $code)
+    /**
+    * @return object
+    */
+    public function validateCode($phoneNumber, $code)
     {
-        
-        return "ddd";
+        return $this->responses["validateCode"];
     }
     
-    
+    /**
+    * @return array
+    */
     public function getTokenFromRefreshToken($token)
     {
-        return "ddd";
+        return $this->responses["getTokenFromRefreshToken"];
     }
     
     /**
@@ -48,11 +52,10 @@ class TinderMockApi implements TinderApiInterface
     * @param string $token
     *
     * @return array
-    * @throws TransferException
     */
     public function getProfile($token)
     {
-        return "ddd";
+        return $this->responses["getProfile"];
     }
     
     /**
@@ -64,8 +67,7 @@ class TinderMockApi implements TinderApiInterface
     */
     public function getRecommendations($token)
     {
-        
-        return "ddd";
+        return $this->responses["getTokenFromRefreshToken"];
     }
     
     /**
@@ -78,10 +80,8 @@ class TinderMockApi implements TinderApiInterface
     */
     public function like($token, $id)
     {
-        return config("testData.swipe_right_success");
+        return $this->responses["swipe_right_success"];
     }
-    
-    
     
     /**
     * Swipe left.
@@ -93,9 +93,8 @@ class TinderMockApi implements TinderApiInterface
     */
     public function pass($token, $id)
     {
-        return config("testData.swipe_left_success");
+        return $this->responses["swipe_left_success"];
     }
-    
     
     /**
     * GETS YOUR OWN METADATA.
@@ -107,10 +106,8 @@ class TinderMockApi implements TinderApiInterface
     */
     public function getMetadata($token)
     {
-        return "ddd";
+        return $this->responses["getMetadata"];
     }
-    
-    
     
     /**
     * Updates user location.
@@ -119,11 +116,9 @@ class TinderMockApi implements TinderApiInterface
     * @param array $position array (lat => float, lng => float)
     *
     * @return array
-    * @throws \RuntimeException
     */
     public function ping($token, array $position)
     {
-        
-        return "ddd";
+        return $this->responses["ping"];
     }
 }

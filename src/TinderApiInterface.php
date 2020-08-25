@@ -5,7 +5,7 @@ namespace Henshall;
 interface TinderApiInterface
 {
     function requestCode($phoneNumber);
-    function validateCode($phoneNumber, $loginRequestCode, $code);
+    function validateCode($phoneNumber, $code);
     function getTokenFromRefreshToken($token);
     function getRecommendations($token);
     function like($token, $id);
@@ -14,4 +14,3 @@ interface TinderApiInterface
     function ping($token, array $position);
 }
 
-    
