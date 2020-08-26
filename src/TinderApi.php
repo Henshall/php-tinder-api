@@ -216,8 +216,10 @@ class TinderApi implements TinderApiInterface
         $number_plus = $phoneNumber;
         $number = ltrim($number_plus, '+'); 
         $number = preg_replace("/[^0-9]/", "", $number );
+        
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, self::URL . '/v3/auth/login?locale=en');
+        
+        curl_setopt($ch, CURLOPT_URL, 'https://api.gotinder.com/v3/auth/login?locale=en');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, chr(10).chr(13).chr(10).chr(11).$number);
@@ -228,6 +230,8 @@ class TinderApi implements TinderApiInterface
         $headers[] = 'Pragma: no-cache';
         $headers[] = 'Cache-Control: no-cache';
         $headers[] = 'X-Supported-Image-Formats: webp,jpeg';
+        $headers[] = 'Funnel-Session-Id: bb041b36638ca491';
+        $headers[] = 'Persistent-Device-Id: 7dd5826b-8433-4543-bb4b-c9937e8c4205';
         $headers[] = 'Tinder-Version: 2.43.0';
         $headers[] = 'User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1';
         $headers[] = 'Content-Type: application/x-google-protobuf';
@@ -237,6 +241,7 @@ class TinderApi implements TinderApiInterface
         $headers[] = 'X-Auth-Token: ';
         $headers[] = 'User-Session-Time-Elapsed: null';
         $headers[] = 'Platform: web';
+        $headers[] = 'App-Session-Id: 93c554f5-f39c-4cf7-845c-4989cb321e1b';
         $headers[] = 'App-Version: 1024300';
         $headers[] = 'Origin: https://tinder.com';
         $headers[] = 'Sec-Fetch-Site: cross-site';
