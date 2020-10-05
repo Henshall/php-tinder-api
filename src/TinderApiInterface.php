@@ -12,5 +12,11 @@ interface TinderApiInterface
     function pass($token, $id);
     function getMetadata($task);
     function ping($token, array $position);
+    function getUser($token, $profileId);
+    function getMatches($token);
+    function getCertainMatch($token, $id); // todo: check the response
+    function getSpotifySettings($token); // todo; 404
+    function getCommonConnections($token, $userId); // todo: 404
+    function sendMessage($token, $userId, $message); // todo: 404
 }
 
