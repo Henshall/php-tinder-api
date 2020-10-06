@@ -7,6 +7,8 @@ use GuzzleHttp\Client;
 class TinderApi implements TinderApiInterface
 {
     const URL = 'https://api.gotinder.com';
+    const LIMIT = 5;
+    const QUERY = 'a';
 
     /**
      * @var Client
@@ -87,6 +89,19 @@ class TinderApi implements TinderApiInterface
     {
 
         return $this->makeGetRequest($token, '/v2/meta/');
+    }
+
+    /**
+     * GETS YOUR OWN METADATA.
+     *
+     * @param string $token
+     *
+     * @return mixed
+     */
+    public function getMetadatav1($token)
+    {
+
+        return $this->makeGetRequest($token, '/meta');
     }
 
 
@@ -314,6 +329,86 @@ class TinderApi implements TinderApiInterface
 
         return json_decode($response->getBody()->getContents(), true);
     }
+
+    /**
+     * Get activity feed, including old and updated bios for comparison
+     *
+     * @param string $token
+     *
+     * @return mixed
+     */
+    public function getActivityFeed($token)
+    {
+
+        return $this->makeGetRequest($token, '/v1/activity/feed?direction=past&eventTypes=1023');
+    }
+
+    /**
+     * Auth Instagram
+     *
+     * @param string $token
+     *
+     * @return mixed
+     */
+    public function getInstagramAuthorize($token)
+    {
+
+        return $this->makeGetRequest($token, '/instagram/authorize');
+    }
+
+    /**
+     * Get the non blurred thumbnail image shown in the messages-window (the one showing the likes you received)
+     *
+     * @param string $token
+     *
+     * @return mixed
+     */
+    public function getFastMatchPreview($token)
+    {
+
+        return $this->makeGetRequest($token, '/v2/fast-match/preview');
+    }
+
+    /**
+     * Get the number of likes you received
+     *
+     * @param string $token
+     *
+     * @return mixed
+     */
+    public function getFastMatchCount($token)
+    {
+
+        return $this->makeGetRequest($token, '/v2/fast-match/count');
+    }
+
+    /**
+     * Get the trending gifs (tinder uses giphy) accessible in chat
+     *
+     * @param string $token
+     *
+     * @return mixed
+     */
+    public function getTrendingGifs($token)
+    {
+
+        return $this->makeGetRequest($token, '/giphy/trending?limit='.self::LIMIT);
+    }
+
+
+    /**
+     * Get gifs (tinder uses giphy) based on a search accessible in chat
+     *
+     * @param string $token
+     *
+     * @return mixed
+     */
+    public function getSearchGifs($token)
+    {
+
+        return $this->makeGetRequest($token, '/giphy/search?limit='.self::LIMIT.'&query='.self::QUERY);
+    }
+
 
     /**
      * Common method to make some get requests

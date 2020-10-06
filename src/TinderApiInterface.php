@@ -18,5 +18,13 @@ interface TinderApiInterface
     function getSpotifySettings($token); // todo; 404
     function getCommonConnections($token, $userId); // todo: 404
     function sendMessage($token, $userId, $message); // todo: 404
+
+    function getActivityFeed($token);
+    function getInstagramAuthorize($token);
+    function getMetadatav1($token); //todo: do we need it?
+    function getFastMatchPreview($token); // todo: return null
+    function getFastMatchCount($token);
+    function getTrendingGifs($token);
+    function getSearchGifs($token);
 }
 
