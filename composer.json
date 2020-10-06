@@ -5,7 +5,7 @@
         "name": "wes",
         "email": "weshenshall@gmail.com"
     }],
-    "minimum-stability": "true",
+    "minimum-stability": "dev",
     "require": {
     "guzzlehttp/guzzle": "^7.1.0"
     },
