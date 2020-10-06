@@ -22,7 +22,7 @@ interface TinderApiInterface
     function getActivityFeed($token);
     function getInstagramAuthorize($token);
     function getMetadatav1($token); //todo: do we need it?
-    function getFastMatchPreview($token); // todo: return null
+    function getFastMatchPreview($token); // todo: returns null, is it ok ?
     function getFastMatchCount($token);
     function getTrendingGifs($token);
     function getSearchGifs($token);
