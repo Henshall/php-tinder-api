@@ -139,17 +139,17 @@ class TinderMockApi implements TinderApiInterface
 
     function getSpotifySettings($token)
     {
-        // TODO: Implement getSpotifySettings() method.
+        throw new \Exception("Current Response is 404", 1);
     }
 
     function getCommonConnections($token, $userId)
     {
-        // TODO: Implement getCommonConnections() method.
+        throw new \Exception("Current Response is 404", 1);
     }
 
     function sendMessage($token, $userId, $message)
     {
-        // TODO: Implement sendMessage() method.
+        throw new \Exception("Current Response is 404", 1);
     }
 
     function getActivityFeed($token)
@@ -169,7 +169,7 @@ class TinderMockApi implements TinderApiInterface
 
     function getFastMatchPreview($token)
     {
-        // TODO: Implement getFastMatchPreview() method.
+        throw new \Exception("Current Response is 404", 1);
     }
 
     function getFastMatchCount($token)
