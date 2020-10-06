@@ -6,10 +6,8 @@
         "email": "weshenshall@gmail.com"
     }],
     "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
-    
-        "guzzlehttp/guzzle": "^7.1@dev"
+    "guzzlehttp/guzzle": "^7.1@dev"
     },
     "autoload": {
         "psr-4": {
