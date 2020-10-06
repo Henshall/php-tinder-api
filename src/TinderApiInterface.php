@@ -12,6 +12,8 @@ interface TinderApiInterface
     function pass($token, $id);
     function getMetadata($task);
     function ping($token, array $position);
+
+
     function getUser($token, $profileId);
     function getMatches($token);
     function getCertainMatch($token, $id); // todo: check the response

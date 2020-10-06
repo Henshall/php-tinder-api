@@ -88,7 +88,7 @@ class TinderApi implements TinderApiInterface
     public function getMetadata($token)
     {
 
-        return $this->makeGetRequest($token, '/v2/meta/');
+        return $this->makeGetRequest($token, '/v2/meta');
     }
 
     /**
