@@ -13,10 +13,5 @@
         "psr-4": {
             "Henshall\\": "src/"
         }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "master"
-        }
     }
 }
