@@ -8,7 +8,7 @@
     "minimum-stability": "dev",
     "require": {
     
-        "guzzlehttp/guzzle": "^7.1@dev"
+        "guzzlehttp/guzzle": "^7.1.1"
     },
     "autoload": {
         "psr-4": {
