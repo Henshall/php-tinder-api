@@ -13,7 +13,7 @@ class TinderMockApi implements TinderApiInterface
     * @var ClientInterface|Client
     */
     private $client;
-    
+
     private $responses;
     
     public function __construct()
@@ -21,7 +21,7 @@ class TinderMockApi implements TinderApiInterface
         $this->responses = include('Responses.php');
         $this->client = new Client;
     }
-    
+
     /**
     * @return string
     */
@@ -106,7 +106,7 @@ class TinderMockApi implements TinderApiInterface
     */
     public function getMetadata($token)
     {
-        return $this->responses["getMetadata"];
+        return $this->responses["getMetaData"];
     }
     
     /**
@@ -120,5 +120,70 @@ class TinderMockApi implements TinderApiInterface
     public function ping($token, array $position)
     {
         return $this->responses["ping"];
+    }
+
+    function getUser($token, $profileId)
+    {
+        return $this->responses["getUser"];
+    }
+
+    function getMatches($token)
+    {
+        return $this->responses["getMatches"];
+    }
+
+    function getCertainMatch($token, $id)
+    {
+        return $this->responses["getCertainMatch"];
+    }
+
+    function getSpotifySettings($token)
+    {
+        throw new \Exception("Current Response is 404", 1);
+    }
+
+    function getCommonConnections($token, $userId)
+    {
+        throw new \Exception("Current Response is 404", 1);
+    }
+
+    function sendMessage($token, $userId, $message)
+    {
+        throw new \Exception("Current Response is 404", 1);
+    }
+
+    function getActivityFeed($token)
+    {
+        return $this->responses["getActivityFeed"];
+    }
+
+    function getInstagramAuthorize($token)
+    {
+        return $this->responses["getInstagramAuthorize"];
+    }
+
+    function getMetadatav1($token)
+    {
+        return $this->responses["getMetadataV1"];
+    }
+
+    function getFastMatchPreview($token)
+    {
+        throw new \Exception("Current Response is 404", 1);
+    }
+
+    function getFastMatchCount($token)
+    {
+        return $this->responses["getFastMatchCount"];
+    }
+
+    function getTrendingGifs($token)
+    {
+        return $this->responses["getTrendingGifs"];
+    }
+
+    function getSearchGifs($token)
+    {
+        return $this->responses["getSearchGifs"];
     }
 }
