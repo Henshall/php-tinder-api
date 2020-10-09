@@ -180,9 +180,7 @@ class TinderApi implements TinderApiInterface
             return $e->getMessage();
         }
 
-        $responseArray = json_decode($response->getBody()->getContents(), true);
-
-        return $responseArray['data'];
+       return $response->getBody()->getContents();
     }
 
     /**
