@@ -235,7 +235,9 @@ class TinderApi implements TinderApiInterface
             return $e->getMessage();
         }
 
-        return $response->getBody()->getContents();
+        $result  = $response->getBody()->getContents();
+        $result = preg_replace("/[^0-9]/", "", $result );
+        return $result;
     }
 
     /**
