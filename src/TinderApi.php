@@ -421,9 +421,9 @@ class TinderApi implements TinderApiInterface
      *
      * @return array
      */
-    private function makeGetRequest($token, $url, $method = "GET")
+    private function makeGetRequest($token, $url)
     {
-        $response = $this->client->request($method, self::URL . $url, [
+        $response = $this->client->get( self::URL . $url, [
             'headers' => [
                 'X-Auth-Token' => $token,
             ]
