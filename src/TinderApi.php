@@ -134,7 +134,7 @@ class TinderApi implements TinderApiInterface
      */
     public function getTokenFromRefreshToken($token)
     {
-        $responseArray = $this->makeGetRequest($token, '/v2/auth/login/sms');
+        $responseArray = $this->makePostRequest($token, '/v2/auth/login/sms');
 
         return $responseArray['data'];
     }
@@ -146,7 +146,7 @@ class TinderApi implements TinderApiInterface
      *
      * @throws
      *
-     * @return object
+     * @return string
      */
     public function validateCode($phoneNumber, $code)
     {
@@ -180,7 +180,7 @@ class TinderApi implements TinderApiInterface
             return $e->getMessage();
         }
 
-       return $response->getBody()->getContents();
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -390,7 +390,7 @@ class TinderApi implements TinderApiInterface
     public function getTrendingGifs($token)
     {
 
-        return $this->makeGetRequest($token, '/giphy/trending?limit='.self::LIMIT);
+        return $this->makeGetRequest($token, '/giphy/trending?limit=' . self::LIMIT);
     }
 
 
@@ -404,7 +404,7 @@ class TinderApi implements TinderApiInterface
     public function getSearchGifs($token)
     {
 
-        return $this->makeGetRequest($token, '/giphy/search?limit='.self::LIMIT.'&query='.self::QUERY);
+        return $this->makeGetRequest($token, '/giphy/search?limit=' . self::LIMIT . '&query=' . self::QUERY);
     }
 
 
@@ -415,19 +415,45 @@ class TinderApi implements TinderApiInterface
      *
      * @param string $url
      *
+     * @param string $method
+     *
      * @throws
      *
      * @return array
      */
-    private function makeGetRequest($token, $url)
+    private function makeGetRequest($token, $url, $method = "GET")
     {
-        $response = $this->client->get(self::URL . $url, [
+        $response = $this->client->request($method, self::URL . $url, [
             'headers' => [
                 'X-Auth-Token' => $token,
             ]
         ]);
 
         return json_decode($response->getBody()->getContents(), true);
+    }
+
+
+    /**
+     * Common method to make some post requests
+     *
+     * @param string $token
+     *
+     * @param string $url
+     *
+     * @throws
+     *
+     * @return array
+     */
+    private function makePostRequest($token, $url)
+    {
+        $response = $this->client->post(self::URL . $url, [
+            'json' => [
+                'refresh_token' => $token,
+            ]
+        ]);
+
+        return json_decode($response->getBody()->getContents(), true);
+
     }
 
 }
