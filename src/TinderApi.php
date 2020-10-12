@@ -9,6 +9,7 @@ class TinderApi implements TinderApiInterface
     const URL = 'https://api.gotinder.com';
     const LIMIT = 5;
     const QUERY = 'a';
+    const UK = '44';
 
     /**
      * @var Client
@@ -197,7 +198,7 @@ class TinderApi implements TinderApiInterface
         $number_plus = $phoneNumber;
         $number = ltrim($number_plus, '+');
         $number = preg_replace("/[^0-9]/", "", $number);
-
+        $code = $this->getCode($number);
         $headers = [
             "Authority" => " api.gotinder.com",
             "Pragma" => " no-cache",
@@ -226,7 +227,7 @@ class TinderApi implements TinderApiInterface
 
         try {
             $response = $this->client->post(self::URL . '/v3/auth/login?locale=en', [
-                'body' => chr(10) . chr(13) . chr(10) . chr(11) . $number,
+                'body' =>  $code.$number,
                 'headers' => $headers
             ]);
         } catch (\Exception $e) {
@@ -423,7 +424,7 @@ class TinderApi implements TinderApiInterface
      */
     private function makeGetRequest($token, $url)
     {
-        $response = $this->client->get( self::URL . $url, [
+        $response = $this->client->get(self::URL . $url, [
             'headers' => [
                 'X-Auth-Token' => $token,
             ]
@@ -456,4 +457,15 @@ class TinderApi implements TinderApiInterface
 
     }
 
+    /**
+     * @param $number
+     * @return string
+     */
+    private function getCode ($number)
+    {
+        if(strpos($number, self::UK) === 0) {
+            return chr(10) . chr(14) . chr(10) . chr(12);
+        }
+        return chr(10) . chr(13) . chr(10) . chr(11);
+    }
 }
