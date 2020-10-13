@@ -9,6 +9,8 @@ class TinderApi implements TinderApiInterface
     const URL = 'https://api.gotinder.com';
     const LIMIT = 5;
     const QUERY = 'a';
+    const UK = '44';
+    const IE = '353';
 
     /**
      * @var Client
@@ -134,7 +136,7 @@ class TinderApi implements TinderApiInterface
      */
     public function getTokenFromRefreshToken($token)
     {
-        $responseArray = $this->makeGetRequest($token, '/v2/auth/login/sms');
+        $responseArray = $this->makePostRequest($token, '/v2/auth/login/sms');
 
         return $responseArray['data'];
     }
@@ -146,7 +148,7 @@ class TinderApi implements TinderApiInterface
      *
      * @throws
      *
-     * @return object
+     * @return string
      */
     public function validateCode($phoneNumber, $code)
     {
@@ -180,7 +182,7 @@ class TinderApi implements TinderApiInterface
             return $e->getMessage();
         }
 
-       return $response->getBody()->getContents();
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -197,7 +199,7 @@ class TinderApi implements TinderApiInterface
         $number_plus = $phoneNumber;
         $number = ltrim($number_plus, '+');
         $number = preg_replace("/[^0-9]/", "", $number);
-
+        $code = $this->getCode($number);
         $headers = [
             "Authority" => " api.gotinder.com",
             "Pragma" => " no-cache",
@@ -226,7 +228,7 @@ class TinderApi implements TinderApiInterface
 
         try {
             $response = $this->client->post(self::URL . '/v3/auth/login?locale=en', [
-                'body' => chr(10) . chr(13) . chr(10) . chr(11) . $number,
+                'body' =>  $code.$number,
                 'headers' => $headers
             ]);
         } catch (\Exception $e) {
@@ -390,7 +392,7 @@ class TinderApi implements TinderApiInterface
     public function getTrendingGifs($token)
     {
 
-        return $this->makeGetRequest($token, '/giphy/trending?limit='.self::LIMIT);
+        return $this->makeGetRequest($token, '/giphy/trending?limit=' . self::LIMIT);
     }
 
 
@@ -404,7 +406,7 @@ class TinderApi implements TinderApiInterface
     public function getSearchGifs($token)
     {
 
-        return $this->makeGetRequest($token, '/giphy/search?limit='.self::LIMIT.'&query='.self::QUERY);
+        return $this->makeGetRequest($token, '/giphy/search?limit=' . self::LIMIT . '&query=' . self::QUERY);
     }
 
 
@@ -414,6 +416,8 @@ class TinderApi implements TinderApiInterface
      * @param string $token
      *
      * @param string $url
+     *
+     * @param string $method
      *
      * @throws
      *
@@ -430,4 +434,40 @@ class TinderApi implements TinderApiInterface
         return json_decode($response->getBody()->getContents(), true);
     }
 
+
+    /**
+     * Common method to make some post requests
+     *
+     * @param string $token
+     *
+     * @param string $url
+     *
+     * @throws
+     *
+     * @return array
+     */
+    private function makePostRequest($token, $url)
+    {
+        $response = $this->client->post(self::URL . $url, [
+            'json' => [
+                'refresh_token' => $token,
+            ]
+        ]);
+
+        return json_decode($response->getBody()->getContents(), true);
+
+    }
+
+    /**
+     * @param $number
+     * @return string
+     */
+    private function getCode ($number)
+    {
+        // for UK AND IE  numbers
+        if(strpos($number, self::UK) === 0 || strpos($number, self::IE) === 0) {
+            return chr(10) . chr(14) . chr(10) . chr(12);
+        }
+        return chr(10) . chr(13) . chr(10) . chr(11);
+    }
 }
