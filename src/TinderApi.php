@@ -10,6 +10,7 @@ class TinderApi implements TinderApiInterface
     const LIMIT = 5;
     const QUERY = 'a';
     const UK = '44';
+    const VE = '58';
     const IE = '353';
 
     /**
@@ -465,7 +466,11 @@ class TinderApi implements TinderApiInterface
     private function getCode ($number)
     {
         // for UK AND IE  numbers
-        if(strpos($number, self::UK) === 0 || strpos($number, self::IE) === 0) {
+        if(
+            strpos($number, self::UK) === 0
+            || strpos($number, self::IE) === 0
+            || strpos($number, self::VE) === 0
+        ) {
             return chr(10) . chr(14) . chr(10) . chr(12);
         }
         return chr(10) . chr(13) . chr(10) . chr(11);
